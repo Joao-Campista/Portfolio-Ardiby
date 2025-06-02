@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio</title>
+  <link href="https://fonts.cdnfonts.com/css/helvetica-neue-5" rel="stylesheet">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/helvetica-neue-5');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      color: #ffffff;
+      background-color: rgb(15, 15, 15);
+      transition: background-color 0.3s linear;
+    }
+
+    header {
+      background-color: rgb(15, 15, 15);
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      position: fixed;
+      width: 100%;
+      z-index: 10;
+      top: 0;
+      transition: transform 0.3s ease;
+    }
+
+    header.hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav-left {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-left a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: bold;
+      transition: opacity 0.3s;
+    }
+
+    .logo-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .logo-container img {
+      height: 40px;
+    }
+
+    .language-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .language-button img {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+      transition: opacity 0.3s;
+    }
+
+    .home {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: transparent;
+      text-align: center;
+      position: relative;
+    }
+
+    .home-logo {
+      position: absolute;
+      left: -5%;
+      top: 55%;
+      transform: translateY(-50%);
+      max-height: 90%;
+      height: auto;
+    }
+
+    .home-text {
+      position: absolute;
+      bottom: 80px;
+      right: 60px;
+      text-align: right;
+    }
+
+    .home-text h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin: 0;
+      color: #ffffff;
+    }
+
+    .home-text p {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: #aaaaaa;
+    }
+
+    .transition {
+      height: 110vh;
+    }
+
+    .portfolio {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 140px 1fr; /* coluna esquerda fixa pro texto e coluna direita flexível */
+  position: relative;
+  padding-left: 20px;
+  background-color: white; /* para ver o fundo branco do portfolio */
+  color: #0f0f0f;
+}
+
+.portfolio-label {
+  grid-column: 1 / 2; /* coluna da esquerda */
+  align-self: center;
+  justify-self: center;
+  opacity: 0;
+  transform: translate(-100px, 0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.portfolio-label.active {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.portfolio-label span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 9rem;
+  font-weight: bold;
+  letter-spacing: 6px;
+  user-select: none;
+}
+
+.portfolio-grid {
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: repeat(4, 400px);
+  grid-template-rows: repeat(3, 275px);
+  gap: 24px;
+  height: 100vh;
+  padding: 40px 40px 40px 20px;
+  box-sizing: border-box;
+}
+
+
+
+.portfolio-grid img {
+  width: 100%;
+  height: 100%; /* para preencher célula do grid */
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.portfolio-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.portfolio-grid img {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 3.2s ease, transform 1.2s ease;
+}
+
+.portfolio-grid img.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sobre {
+  min-height: 100vh;
+  background-color: transparent;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 60px;
+  text-align: left;
+}
+
+.sobre-content {
+  max-width: 900px;
+}
+
+.sobre h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 24px;
+}
+
+.sobre p {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: #cccccc;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+/* Overlay de transição */
+.overlay-transition {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #0f0f0f;
+  z-index: 1; /* <<< Alterado de 999 para 1 */
+  transition: right 1s ease-in-out;
+  pointer-events: none;
+}
+
+
+/* Ativo */
+.overlay-transition.active {
+  right: 0;
+}
+
+/* Animação de entrada do conteúdo da seção Sobre */
+.sobre {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  padding: 0 40px;
+  background-color: rgb(15, 15, 15);
+  color: white;
+}
+
+.sobre-text {
+  max-width: 600px;
+}
+
+.sobre-text h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.sobre-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.sobre-logo img {
+  width: 400px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+
+
+header, .home, .portfolio, .sobre {
+  position: relative;
+  z-index: 2;
+}
+
+.transition1 {
+  height: 80vh;
+  background-color: white;
+}
+
+header {
+  transition: transform 0.3s ease;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+}
+
+header.hidden {
+  transform: translateY(-100%);
+}
+
+.contato {
+  background-color: #ffffff;
+  color: #0f0f0f;
+  padding: 80px 60px;
+  min-height: 110vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contato-content {
+  max-width: 600px;
+  width: 100%;
+}
+
+.contato h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input, textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+button {
+  padding: 14px;
+  background-color: #061eea; /* azul da paleta */
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.footer {
+  background-color: #0f0f0f;
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  color: #ffffff;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #02ef42; /* Verde da Ardiby ao passar o mouse */
+}
+
+.language-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.language-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.language-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.lang-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  position: absolute;
+  right: 0;
+  background-color: #0f0f0f;
+  min-width: 150px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  z-index: 999;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.language-selector:hover .lang-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-dropdown a {
+  color: white;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+.lang-dropdown a:hover {
+  background-color: rgba(2, 239, 66, 0.1);
+}
+
+.portfolio-grid {
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 24px;
+  height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-items: center;
+}
+
+.video-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: transform 0.4s ease, z-index 0.4s;
+  z-index: 1;
+}
+
+.video-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  pointer-events: none;
+}
+
+.portfolio-grid:hover .video-item {
+  transform: scale(0.95);
+}
+
+.video-item:hover {
+  transform: scale(1.1);
+  z-index: 5;
+}
+
+.video-item:hover video {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+
+
+  </style>
+</head>
+
+<body>
+
+  <header id="header">
+    <nav class="nav-left">
+  <a href="#home">Início</a>
+  <a href="#portfolio">Portfólio</a>
+  <a href="#sobre">Sobre</a>
+  <a href="#contato">Contato</a>
+</nav>
+
+
+    <div class="logo-container">
+      <img src="svgLogo.svg" alt="Logo">
+    </div>
+
+    <div class="language-selector">
+  <button class="language-button">
+    <img src="icon-idioma-branco.svg" alt="Idioma">
+  </button>
+  <div class="lang-dropdown">
+    <a href="#" onclick="setLanguage('pt')">🇧🇷 Português</a>
+    <a href="#" onclick="setLanguage('en')">🇺🇸 English</a>
+  </div>
+</div>
+
+  </header>
+
+ <section class="home" id="home">
+    <img class="home-logo" src="logo_vertical.png" alt="Logo Home">
+
+    <div class="home-text">
+      <h1>Transformando Cores em Identidade</h1>
+      <p>Design, criatividade e tecnologia na medida certa.</p>
+    </div>
+  </section>
+
+
+  <section class="transition"></section>
+
+  <section class="portfolio" id="portfolio">
+  <div class="portfolio-label" id="portfolioLabel">
+    <span>PORTFOLIO</span>
+  </div>
+
+  <div class="portfolio-grid">
+  <div class="video-item">
+    <video src="videos/Blue Modern Technology YouTube Intro.mp4" muted loop></video>
+  </div>
+  <div class="video-item">
+    <video src="videos/Nature Travel Youtube Video Intro.mp4" muted loop></video>
+  </div>
+  <div class="video-item">
+    <video src="videos/Blue and Black Gradient Abstract YouTube Intro Video.mp4" muted loop></video>
+  </div>
+  <div class="video-item">
+    <video src="videos/Colorful Art & Design Gallery Intro Video.mp4" muted loop></video>
+  </div>
+</div>
+
+</section>
+
+<section class="transition1"></section>
+
+
+
+
+
+
+<section class="sobre" id="sobre">
+  <div class="sobre-text">
+    <h2>Sobre</h2>
+    <p>
+      Na Ardiby, transformamos ideias em experiências visuais únicas.  
+      Nosso time combina criatividade, tecnologia e estratégia para construir identidades que conectam marcas ao seu público de forma autêntica.  
+      Trabalhamos lado a lado com nossos clientes, entendendo suas necessidades e objetivos para entregar soluções sob medida, que destacam e valorizam cada projeto.  
+      Aqui, design não é só estética — é comunicação, é impacto, é resultado.
+    </p>
+  </div>
+  <div class="sobre-logo">
+    <img src="logo_vertical.png" alt="Logo da Empresa">
+  </div>
+</section>
+
+
+
+
+<div class="overlay-transition"></div>
+
+<section class="contato" id="contato">
+  <div class="contato-content">
+    <h2>Contato</h2>
+    <form>
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+
+      <label for="mensagem">Mensagem</label>
+      <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem" required></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Ardiby. Todos os direitos reservados.</p>
+    <div class="social-icons">
+      <a href="#" target="_blank" aria-label="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="#" target="_blank" aria-label="GitHub">
+        <i class="fab fa-behance"></i>
+      </a>
+      <a href="#" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+
+
+  <script>
+  const header = document.getElementById('header');
+const homeSection = document.querySelector('.home');
+const portfolioLabel = document.getElementById('portfolioLabel');
+
+let lastScrollTop = 0;
+
+window.addEventListener('scroll', () => {
+  const transitionSection = document.querySelector('.transition');
+  const transitionRect = transitionSection.getBoundingClientRect();
+  const homeRect = homeSection.getBoundingClientRect();
+  const portfolioRect = portfolioLabel.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  // Gradiente de cor do fundo
+  const start = windowHeight;
+  const end = 0;
+
+  if (homeRect.bottom <= 0) {
+    let progress = (start - transitionRect.top) / (start - end);
+    progress = Math.min(Math.max(progress, 0), 1);
+
+    const value = Math.round(15 + (255 - 15) * progress);
+    document.body.style.backgroundColor = `rgb(${value}, ${value}, ${value})`;
+  } else {
+    document.body.style.backgroundColor = `rgb(15, 15, 15)`;
+  }
+
+  // Controle do header: esconde ao rolar pra baixo após 100px, mostra ao rolar pra cima
+  const currentScroll = window.scrollY;
+
+  if (currentScroll > 100 && currentScroll > lastScrollTop) {
+    // Rolando para baixo e passou 100px: esconde header
+    header.classList.add('hidden');
+  } else {
+    // Rolando para cima ou perto do topo: mostra header
+    header.classList.remove('hidden');
+  }
+
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+
+  // Animação do texto PORTFOLIO
+  if (portfolioRect.top < windowHeight * 0.7 && portfolioRect.bottom > windowHeight * 0.3) {
+    portfolioLabel.classList.add('active');
+  } else {
+    portfolioLabel.classList.remove('active');
+  }
+});
+
+  </script>
+  <script>
+  const portfolioSection = document.getElementById('portfolio');
+  const portfolioImages = document.querySelectorAll('.portfolio-grid img');
+
+  function checkPortfolioVisibility() {
+    const portfolioRect = portfolioSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    const isPortfolioVisible = (
+      portfolioRect.top < windowHeight &&
+      portfolioRect.bottom > 0
+    );
+
+    if (isPortfolioVisible) {
+      portfolioImages.forEach(img => {
+        const rect = img.getBoundingClientRect();
+
+        if (
+          rect.top < windowHeight - 100 &&
+          rect.bottom > 100
+        ) {
+          img.classList.add('visible');
+        }
+      });
+    } else {
+      portfolioImages.forEach(img => {
+        img.classList.remove('visible');
+      });
+    }
+  }
+
+  window.addEventListener('scroll', checkPortfolioVisibility);
+  window.addEventListener('load', checkPortfolioVisibility);
+</script>
+
+<script>
+const portfolioSection1 = document.getElementById('portfolio');
+const sobreSection = document.getElementById('sobre');
+const overlay = document.querySelector('.overlay-transition');
+
+let sobreShown = false;
+
+window.addEventListener('scroll', () => {
+  const portfolioRect = portfolioSection1.getBoundingClientRect();
+  const sobreRect = sobreSection.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  const isLeavingPortfolio = portfolioRect.bottom <= 0;
+  
+  // Verifica se sobre está visível na viewport (topo menor que 70% da tela e bottom maior que 0)
+  const isSobreVisible = sobreRect.top < windowHeight * 0.7 && sobreRect.bottom > 0;
+
+  if (isLeavingPortfolio && !sobreShown) {
+    // Ativa o overlay e mostra a seção sobre após o tempo
+    overlay.classList.add('active');
+
+    setTimeout(() => {
+      sobreSection.classList.add('visible');
+    }, 1000);
+
+    sobreShown = true;
+  }
+
+  // Aqui fazemos o reset se a seção SOBRE NÃO ESTIVER visível (para cima ou para baixo)
+  if (!isSobreVisible && sobreShown) {
+    sobreSection.classList.remove('visible');
+    overlay.classList.remove('active');
+    sobreShown = false;
+  }
+});
+
+</script>
+
+<script>
+  const sobreLabel = document.querySelector('.sobre-label');
+  const sobreSection1 = document.getElementById('sobre');
+
+  window.addEventListener('scroll', () => {
+    const sobreRect = sobreSection1.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    if (sobreRect.top < windowHeight * 0.7 && sobreRect.bottom > windowHeight * 0.3) {
+      sobreLabel.classList.add('active');
+    } else {
+      sobreLabel.classList.remove('active');
+    }
+  });
+</script>
+
+<script>
+  const translations = {
+    pt: {
+      inicio: "Início",
+      portfolio: "Portfólio",
+      sobre: "Sobre",
+      contato: "Contato",
+      homeTitle: "Transformando Cores em Identidade",
+      homeSubtitle: "Design, criatividade e tecnologia na medida certa.",
+      sobreTitle: "Sobre",
+      sobreContent: `
+        Na Ardiby, transformamos ideias em experiências visuais únicas.
+        Nosso time combina criatividade, tecnologia e estratégia para construir identidades que conectam marcas ao seu público de forma autêntica.
+        Trabalhamos lado a lado com nossos clientes, entendendo suas necessidades e objetivos para entregar soluções sob medida, que destacam e valorizam cada projeto.
+        Aqui, design não é só estética — é comunicação, é impacto, é resultado.
+      `,
+      contatoTitle: "Contato",
+      nome: "Nome",
+      email: "Email",
+      mensagem: "Mensagem",
+      placeholderNome: "Seu nome",
+      placeholderEmail: "seu@email.com",
+      placeholderMensagem: "Escreva sua mensagem",
+      enviar: "Enviar"
+    },
+    en: {
+      inicio: "Home",
+      portfolio: "Portfolio",
+      sobre: "About",
+      contato: "Contact",
+      homeTitle: "Transforming Colors into Identity",
+      homeSubtitle: "Design, creativity, and technology in the right measure.",
+      sobreTitle: "About",
+      sobreContent: `
+        At Ardiby, we turn ideas into unique visual experiences.
+        Our team combines creativity, technology, and strategy to build identities that connect brands to their audiences authentically.
+        We work side by side with our clients, understanding their needs and goals to deliver tailored solutions that highlight and enhance each project.
+        Here, design is not just aesthetics — it’s communication, impact, and results.
+      `,
+      contatoTitle: "Contact",
+      nome: "Name",
+      email: "Email",
+      mensagem: "Message",
+      placeholderNome: "Your name",
+      placeholderEmail: "your@email.com",
+      placeholderMensagem: "Write your message",
+      enviar: "Send"
+    }
+  };
+
+  function setLanguage(lang) {
+    const t = translations[lang];
+
+    // Navbar
+    document.querySelector('.nav-left a[href="#home"]').textContent = t.inicio;
+    document.querySelector('.nav-left a[href="#portfolio"]').textContent = t.portfolio;
+    document.querySelector('.nav-left a[href="#sobre"]').textContent = t.sobre;
+    document.querySelector('.nav-left a[href="#contato"]').textContent = t.contato;
+
+    // Home
+    document.querySelector('.home-text h1').textContent = t.homeTitle;
+    document.querySelector('.home-text p').textContent = t.homeSubtitle;
+
+    // Sobre
+    document.querySelector('.sobre-text h2').textContent = t.sobreTitle;
+    document.querySelector('.sobre-text p').textContent = t.sobreContent.trim();
+
+    // Contato
+    document.querySelector('.contato h2').textContent = t.contatoTitle;
+    document.querySelector('label[for="nome"]').textContent = t.nome;
+    document.querySelector('label[for="email"]').textContent = t.email;
+    document.querySelector('label[for="mensagem"]').textContent = t.mensagem;
+
+    document.querySelector('#nome').placeholder = t.placeholderNome;
+    document.querySelector('#email').placeholder = t.placeholderEmail;
+    document.querySelector('#mensagem').placeholder = t.placeholderMensagem;
+
+    document.querySelector('button[type="submit"]').textContent = t.enviar;
+  }
+</script>
+
+<script>
+  const videos = document.querySelectorAll('.video-item video');
+
+  videos.forEach(video => {
+    video.parentElement.addEventListener('mouseenter', () => {
+      video.play();
+    });
+
+    video.parentElement.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
+</script>
+
+
+</body>
+</html>
