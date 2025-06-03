@@ -483,6 +483,128 @@ button {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
+.modal {
+    display: none; /* oculto inicialmente */
+    position: fixed;
+    z-index: 1000; /* acima de tudo */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 15, 15, 0.95);
+    overflow-y: auto;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .modal-content {
+    /* Agora ocupa toda a tela */
+    width: 100vw;
+    height: 100vh;
+    background: #0f0f0f;
+    color: #fff;
+    position: relative;
+    padding: 60px 80px;
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    /* Marca d’água da logo no fundo */
+    
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 400px 400px;
+    background-origin: content-box;
+    opacity: 1;
+  }
+
+  /* Para a marca d’água ficar clara mas não atrapalhar o texto,
+     usamos um pseudo-elemento */
+  .modal-content::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1000px;
+    height: 1000px;
+    transform: translate(-50%, -50%);
+    background-image: url('logo Branca.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    opacity: 0.02; /* muito transparente */
+    pointer-events: none; /* não interfere em cliques */
+    z-index: 0;
+  }
+
+  /* Conteúdo do modal acima da marca d’água */
+  #modalBody {
+    position: relative;
+    z-index: 1;
+  }
+
+  .close-button {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 3rem;
+    color: #fff;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
+    z-index: 2;
+  }
+  .close-button:hover {
+    color: #bbb;
+  }
+
+  #modalBody img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin: 25px 0;
+    box-shadow: 0 0 10px rgba(255,255,255,0.15);
+  }
+
+  #modalBody h3 {
+    margin-top: 0;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5em;
+  }
+
+  #modalBody h4 {
+    font-size: 1.4rem;
+    margin-top: 1.6em;
+    margin-bottom: 0.4em;
+    font-weight: 600;
+    border-bottom: 1px solid #444;
+    padding-bottom: 6px;
+  }
+
+  #modalBody p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #ddd;
+    margin-bottom: 1.2em;
+  }
+
+  #modalBody ul {
+    margin-left: 20px;
+    margin-bottom: 1.6em;
+  }
+
+  #modalBody ul li {
+    margin-bottom: 0.6em;
+    font-size: 1.1rem;
+    color: #eee;
+  }
+
+  .hide-header {
+  display: none !important;
+}
 
 
   </style>
@@ -547,6 +669,15 @@ button {
   </div>
 </div>
 
+  <div id="videoModal" class="modal">
+  <div class="modal-content">
+    <button id="closeModal" class="close-button">&times;</button>
+    <div id="modalBody">
+      <!-- Conteúdo detalhado do projeto vai aparecer aqui -->
+    </div>
+  </div>
+</div>
+
 </section>
 
 <section class="transition1"></section>
@@ -570,6 +701,8 @@ button {
     <img src="logo_vertical.png" alt="Logo da Empresa">
   </div>
 </section>
+
+
 
 
 
@@ -849,6 +982,149 @@ window.addEventListener('scroll', () => {
   });
 </script>
 
+<script>
+  // Dados detalhados dos projetos com tópicos e mais imagens
+  const projectDetails = [
+    {
+      title: "Blue Modern Technology",
+      description: `
+        <p>Este projeto enfatiza a modernidade tecnológica usando uma paleta de tons azuis frios e neutros, garantindo uma sensação de inovação e profissionalismo.</p>
+        
+        <h4>Elementos principais da identidade visual:</h4>
+        <ul>
+          <li><strong>Paleta de cores:</strong> tons de azul (celeste, royal, marinho) combinados com branco e cinza claro.</li>
+          <li><strong>Tipografia:</strong> fonte sans-serif clean, com peso médio a bold para títulos e leve para textos.</li>
+          <li><strong>Ícones:</strong> estilo linear minimalista, garantindo clareza e modernidade.</li>
+          <li><strong>Layout:</strong> uso de espaços brancos amplos para facilitar a leitura e foco no conteúdo.</li>
+          <li><strong>Texturas e formas:</strong> linhas retas e ângulos suaves para transmitir tecnologia e segurança.</li>
+        </ul>
+
+        <p>A identidade visual visa passar uma imagem de alta tecnologia confiável, voltada para empresas inovadoras e startups do setor digital.</p>
+      `,
+      images: [
+        "images/project1-img1.jpg",
+        "images/project1-img2.jpg",
+        "images/project1-img3.jpg"
+      ]
+    },
+    {
+      title: "Nature Travel",
+      description: `
+        <p>Inspirado na aventura e na sustentabilidade, este projeto transmite uma conexão profunda com a natureza através de cores e formas orgânicas.</p>
+
+        <h4>Características da identidade visual:</h4>
+        <ul>
+          <li><strong>Paleta de cores:</strong> verdes musgo, marrons terrosos, bege e off-white.</li>
+          <li><strong>Tipografia:</strong> fontes arredondadas, legíveis e com aspecto natural, dando conforto e acolhimento.</li>
+          <li><strong>Elementos gráficos:</strong> folhas, texturas de madeira e pedras, representando elementos naturais.</li>
+          <li><strong>Estilo visual:</strong> rústico porém moderno, com uso de fotos e ilustrações suaves.</li>
+          <li><strong>Layout:</strong> organizado, mas com toques leves que evocam liberdade e exploração.</li>
+        </ul>
+
+        <p>Essa identidade visual reforça a missão da marca de promover o turismo consciente e a valorização do meio ambiente.</p>
+      `,
+      images: [
+        "images/project2-img1.jpg",
+        "images/project2-img2.jpg"
+      ]
+    },
+    {
+      title: "Blue and Black Gradient",
+      description: `
+        <p>Um projeto com um visual sofisticado e contemporâneo, utilizando gradientes de azul escuro para preto, criando uma atmosfera de elegância e profundidade.</p>
+
+        <h4>Aspectos-chave da identidade visual:</h4>
+        <ul>
+          <li><strong>Paleta de cores:</strong> azul marinho, azul petróleo, preto e cinza antracite.</li>
+          <li><strong>Tipografia:</strong> fontes serifadas modernas para títulos e sans-serif para corpo de texto, garantindo equilíbrio.</li>
+          <li><strong>Uso do gradiente:</strong> como elemento principal de fundo, trazendo dinamismo sem perder a sobriedade.</li>
+          <li><strong>Elementos decorativos:</strong> sombras suaves, linhas finas e detalhes metálicos simulados.</li>
+          <li><strong>Layout:</strong> alinhamento centralizado e espaçamento harmonioso para foco no conteúdo.</li>
+        </ul>
+
+        <p>Ideal para empresas que querem transmitir tradição e inovação ao mesmo tempo, com um toque exclusivo e refinado.</p>
+      `,
+      images: [
+        "images/project3-img1.jpg",
+        "images/project3-img2.jpg",
+        "images/project3-img3.jpg",
+        "images/project3-img4.jpg"
+      ]
+    },
+    {
+      title: "Colorful Art & Design Gallery",
+      description: `
+        <p>Este projeto celebra a diversidade e criatividade por meio de uma explosão de cores vibrantes e formas abstratas.</p>
+
+        <h4>Pontos importantes da identidade visual:</h4>
+        <ul>
+          <li><strong>Paleta de cores:</strong> vermelho vivo, amarelo canário, azul royal, roxo e verde limão.</li>
+          <li><strong>Tipografia:</strong> fontes customizadas, arrojadas e experimentais, combinando com o espírito artístico.</li>
+          <li><strong>Elementos gráficos:</strong> formas geométricas e abstratas, linhas curvas e padrões assimétricos.</li>
+          <li><strong>Estilo geral:</strong> dinâmico, vibrante e cheio de energia.</li>
+          <li><strong>Layout:</strong> fluido e não convencional, estimulando a criatividade e o impacto visual.</li>
+        </ul>
+
+        <p>A identidade visual reforça a missão da galeria de promover inovação, diversidade e expressividade nas artes.</p>
+      `,
+      images: [
+        "images/project4-img1.jpg",
+        "images/project4-img2.jpg",
+        "images/project4-img3.jpg"
+      ]
+    }
+  ];
+
+  const modal = document.getElementById('videoModal');
+  const modalBody = document.getElementById('modalBody');
+  const closeModalBtn = document.getElementById('closeModal');
+  const videoItems = document.querySelectorAll('.video-item');
+
+  videoItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      openModal(index);
+    });
+  });
+
+  closeModalBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  function openModal(index) {
+  const project = projectDetails[index];
+  let content = `<h3>${project.title}</h3>`;
+  content += `<p>${project.description}</p>`;
+  project.images.forEach(imgSrc => {
+    content += `<img src="${imgSrc}" alt="${project.title}">`;
+  });
+  modalBody.innerHTML = content;
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden'; // bloqueia scroll do fundo
+  
+  if(header) {
+    header.classList.add('hide-header');  // esconde o header
+  }
+}
+
+function closeModal() {
+  modal.style.display = 'none';
+  modalBody.innerHTML = '';
+  document.body.style.overflow = 'auto'; // libera scroll
+
+  if(header) {
+    header.classList.remove('hide-header');  // mostra o header de novo
+  }
+}
+</script>
+
+
+
+</body>
+</html>
 
 </body>
 </html>
