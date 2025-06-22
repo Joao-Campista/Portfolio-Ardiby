@@ -98,11 +98,11 @@
 
     .home-logo {
       position: absolute;
-      left: -70%;
+     
       top: 68%;
       transform: translateY(-50%);
       
-      height: 2600px;
+      width: 90%;
     }
 
     .home-text {
@@ -529,11 +529,15 @@ button {
   display: none !important;
 }
 
-  #videohome{
-    height: 120vh;
-    width: 100vw;
-  }
-
+  #videohome {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  z-index: -1;
+}
   .portfolio {
   height: 100vh;
   background-color: white;
@@ -541,19 +545,16 @@ button {
   position: relative;
   color: #0f0f0f;
 }
-
 .portfolio-wrapper {
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
-
 .portfolio-track {
   display: flex;
   height: 100%;
   will-change: transform;
 }
-
 .portfolio-item {
   min-width: 100vw;
   height: 100vh;
@@ -561,8 +562,6 @@ button {
   flex-shrink: 0;
   padding: 0; /* <- REMOVA isso se quiser fullscreen */
 }
-
-
 .portfolio-item img {
   width: 100%;
   height: 100%;
@@ -570,18 +569,14 @@ button {
   border-radius: 0;
   box-shadow: none;
 }
-
-
 header {
   background-color: transparent;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  
 }
-
 header.black-bg {
   background-color: #0f0f0f;
 }
-
-
 .portfolio-label-overlay {
   position: absolute;
   top: 20px;
@@ -594,13 +589,146 @@ header.black-bg {
   font-family: 'Helvetica Neue', sans-serif;
 }
 
+ @media (max-width: 1024px) {
+      .sobre {
+        flex-direction: column;
+        gap: 40px;
+        padding: 60px 30px;
+        text-align: center;
+      }
+      .sobre-logo img {
+        width: 80%;
+        max-width: 300px;
+      }
+      .sobre-text h2 {
+        font-size: 2.5rem;
+      }
+      .home-text {
+        right: 30px;
+        bottom: 60px;
+      }
+    }
 
+    @media (max-width: 768px) {
+      .nav-left {
+        gap: 16px;
+      }
+      .home-text {
+        right: 20px;
+        bottom: 40px;
+      }
+      .home-logo {
+        width: 95%;
+      }
+      .portfolio-label-overlay {
+        font-size: 1.8rem;
+        top: 10px;
+        left: 20px;
+      }
+      .contato {
+        padding: 60px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-container img {
+        height: 30px;
+      }
+      header {
+        padding: 12px 16px;
+      }
+      .home-text h1 {
+        font-size: 1.8rem;
+      }
+      .home-text p {
+        font-size: 1rem;
+      }
+      .sobre-text p,
+      .contato h2,
+      form label,
+      input, textarea, button {
+        font-size: 1rem;
+      }
+    }
+    /* Esconder o hamburger por padrão */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 20;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 3px;
+}
+
+/* Menu normal */
+.nav-left {
+  display: flex;
+  gap: 24px;
+}
+
+/* ===== Responsividade para telas pequenas ===== */
+@media (max-width: 768px) {
+  /* Esconde o menu */
+  .nav-left {
+    display: none;
+    position: fixed;
+    top: 60px; /* abaixo do header */
+    left: 0;
+    right: 0;
+    background-color: #0f0f0f;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    z-index: 15;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  /* Mostra o menu quando ativo */
+  .nav-left.active {
+    display: flex;
+    max-height: 300px; /* ou um valor suficiente para caber os links */
+  }
+
+  /* Mostra o hamburger */
+  .hamburger {
+    display: flex;
+  }
+}
+
+.home-logo.vertical-logo {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .home-logo {
+    display: none;
+  }
+  .home-logo.vertical-logo {
+    display: block;
+    width: 400px; /* ajuste o tamanho conforme preferir */
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
 
   </style>
 </head>
-
 <body>
-
   <header id="header">
     <nav class="nav-left">
   <a href="#home">Início</a>
@@ -608,12 +736,14 @@ header.black-bg {
   <a href="#sobre">Sobre</a>
   <a href="#contato">Contato</a>
 </nav>
-
-
+<button class="hamburger" aria-label="Abrir menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
     <div class="logo-container">
       <img src="svgLogo.svg" alt="Logo">
     </div>
-
     <div class="language-selector">
   <button class="language-button">
     <img src="icon-idioma-branco.svg" alt="Idioma">
@@ -623,19 +753,12 @@ header.black-bg {
     <a href="#" onclick="setLanguage('en')">🇺🇸 English</a>
   </div>
 </div>
-
   </header>
-
  <section class="home" id="home">
   <video autoplay muted id="videohome" src="videos/video-home.mp4" muted loop></video>
-    <img class="home-logo" src="Logo-Branca-_1_.png" alt="Logo Home">
-
-    
-
-
+    <img class="home-logo" src="svgLogo.svg" alt="Logo Home">
+    <img class="home-logo vertical-logo" src="logo_vertical.png" alt="Logo Vertical Home">
   </section>
-
-
  <section class="portfolio-section" id="portfolio">
   <div class="portfolio-label-overlay">portfolio</div>
 
@@ -664,17 +787,7 @@ header.black-bg {
   </div>
   </div>
 </section>
-
-
-
-
 <section class="transition1"></section>
-
-
-
-
-
-
 <section class="sobre" id="sobre">
   <div class="sobre-text">
     <h2>Sobre</h2>
@@ -689,14 +802,7 @@ header.black-bg {
     <img src="logo_vertical.png" alt="Logo da Empresa">
   </div>
 </section>
-
-
-
-
-
-
 <div class="overlay-transition"></div>
-
 <section class="contato" id="contato">
   <div class="contato-content">
     <h2>Contato</h2>
@@ -714,7 +820,6 @@ header.black-bg {
     </form>
   </div>
 </section>
-
 <footer class="footer">
   <div class="footer-content">
     <p>&copy; 2025 Ardiby. Todos os direitos reservados.</p>
@@ -731,41 +836,30 @@ header.black-bg {
     </div>
   </div>
 </footer>
-
-
-
-
   <script>
   const header = document.getElementById('header');
 const homeSection = document.querySelector('.home');
 const portfolioLabel = document.getElementById('portfolioLabel');
-
 let lastScrollTop = 0;
-
 window.addEventListener('scroll', () => {
   const transitionSection = document.querySelector('.transition');
   const transitionRect = transitionSection.getBoundingClientRect();
   const homeRect = homeSection.getBoundingClientRect();
   const portfolioRect = portfolioLabel.getBoundingClientRect();
   const windowHeight = window.innerHeight;
-
   // Gradiente de cor do fundo
   const start = windowHeight;
   const end = 0;
-
   if (homeRect.bottom <= 0) {
     let progress = (start - transitionRect.top) / (start - end);
     progress = Math.min(Math.max(progress, 0), 1);
-
     const value = Math.round(15 + (255 - 15) * progress);
     document.body.style.backgroundColor = `rgb(${value}, ${value}, ${value})`;
   } else {
     document.body.style.backgroundColor = `rgb(15, 15, 15)`;
   }
-
   // Controle do header: esconde ao rolar pra baixo após 100px, mostra ao rolar pra cima
   const currentScroll = window.scrollY;
-
   if (currentScroll > 100 && currentScroll > lastScrollTop) {
     // Rolando para baixo e passou 100px: esconde header
     header.classList.add('hidden');
@@ -773,9 +867,7 @@ window.addEventListener('scroll', () => {
     // Rolando para cima ou perto do topo: mostra header
     header.classList.remove('hidden');
   }
-
   lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-
   // Animação do texto PORTFOLIO
   if (portfolioRect.top < windowHeight * 0.7 && portfolioRect.bottom > windowHeight * 0.3) {
     portfolioLabel.classList.add('active');
@@ -783,71 +875,27 @@ window.addEventListener('scroll', () => {
     portfolioLabel.classList.remove('active');
   }
 });
-
   </script>
-  <script>
-  const portfolioSection = document.getElementById('portfolio');
-  const portfolioImages = document.querySelectorAll('.portfolio-grid img');
-
-  function checkPortfolioVisibility() {
-    const portfolioRect = portfolioSection.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    const isPortfolioVisible = (
-      portfolioRect.top < windowHeight &&
-      portfolioRect.bottom > 0
-    );
-
-    if (isPortfolioVisible) {
-      portfolioImages.forEach(img => {
-        const rect = img.getBoundingClientRect();
-
-        if (
-          rect.top < windowHeight - 100 &&
-          rect.bottom > 100
-        ) {
-          img.classList.add('visible');
-        }
-      });
-    } else {
-      portfolioImages.forEach(img => {
-        img.classList.remove('visible');
-      });
-    }
-  }
-
-  window.addEventListener('scroll', checkPortfolioVisibility);
-  window.addEventListener('load', checkPortfolioVisibility);
-</script>
-
 <script>
 const portfolioSection1 = document.getElementById('portfolio');
 const sobreSection = document.getElementById('sobre');
 const overlay = document.querySelector('.overlay-transition');
-
 let sobreShown = false;
-
 window.addEventListener('scroll', () => {
   const portfolioRect = portfolioSection1.getBoundingClientRect();
   const sobreRect = sobreSection.getBoundingClientRect();
   const windowHeight = window.innerHeight;
-
   const isLeavingPortfolio = portfolioRect.bottom <= 0;
-  
   // Verifica se sobre está visível na viewport (topo menor que 70% da tela e bottom maior que 0)
   const isSobreVisible = sobreRect.top < windowHeight * 0.7 && sobreRect.bottom > 0;
-
   if (isLeavingPortfolio && !sobreShown) {
     // Ativa o overlay e mostra a seção sobre após o tempo
     overlay.classList.add('active');
-
     setTimeout(() => {
       sobreSection.classList.add('visible');
     }, 1000);
-
     sobreShown = true;
   }
-
   // Aqui fazemos o reset se a seção SOBRE NÃO ESTIVER visível (para cima ou para baixo)
   if (!isSobreVisible && sobreShown) {
     sobreSection.classList.remove('visible');
@@ -855,13 +903,10 @@ window.addEventListener('scroll', () => {
     sobreShown = false;
   }
 });
-
 </script>
-
 <script>
   const sobreLabel = document.querySelector('.sobre-label');
   const sobreSection1 = document.getElementById('sobre');
-
   window.addEventListener('scroll', () => {
     const sobreRect = sobreSection1.getBoundingClientRect();
     const windowHeight = window.innerHeight;
@@ -873,7 +918,6 @@ window.addEventListener('scroll', () => {
     }
   });
 </script>
-
 <script>
   const translations = {
     pt: {
@@ -923,41 +967,32 @@ window.addEventListener('scroll', () => {
       enviar: "Send"
     }
   };
-
   function setLanguage(lang) {
     const t = translations[lang];
-
     // Navbar
     document.querySelector('.nav-left a[href="#home"]').textContent = t.inicio;
     document.querySelector('.nav-left a[href="#portfolio"]').textContent = t.portfolio;
     document.querySelector('.nav-left a[href="#sobre"]').textContent = t.sobre;
     document.querySelector('.nav-left a[href="#contato"]').textContent = t.contato;
-
     // Home
     document.querySelector('.home-text h1').textContent = t.homeTitle;
     document.querySelector('.home-text p').textContent = t.homeSubtitle;
-
     // Sobre
     document.querySelector('.sobre-text h2').textContent = t.sobreTitle;
     document.querySelector('.sobre-text p').textContent = t.sobreContent.trim();
-
     // Contato
     document.querySelector('.contato h2').textContent = t.contatoTitle;
     document.querySelector('label[for="nome"]').textContent = t.nome;
     document.querySelector('label[for="email"]').textContent = t.email;
     document.querySelector('label[for="mensagem"]').textContent = t.mensagem;
-
     document.querySelector('#nome').placeholder = t.placeholderNome;
     document.querySelector('#email').placeholder = t.placeholderEmail;
     document.querySelector('#mensagem').placeholder = t.placeholderMensagem;
-
     document.querySelector('button[type="submit"]').textContent = t.enviar;
   }
 </script>
-
 <script>
   const videos = document.querySelectorAll('.video-item video');
-
   videos.forEach(video => {
     video.parentElement.addEventListener('mouseenter', () => {
       video.play();
@@ -969,247 +1004,57 @@ window.addEventListener('scroll', () => {
     });
   });
 </script>
-
-<script>
-  // Dados detalhados dos projetos com tópicos e mais imagens
-  const projectDetails = [
-    {
-      title: "Blue Modern Technology",
-      description: `
-        <p>Este projeto enfatiza a modernidade tecnológica usando uma paleta de tons azuis frios e neutros, garantindo uma sensação de inovação e profissionalismo.</p>
-        
-        <h4>Elementos principais da identidade visual:</h4>
-        <ul>
-          <li><strong>Paleta de cores:</strong> tons de azul (celeste, royal, marinho) combinados com branco e cinza claro.</li>
-          <li><strong>Tipografia:</strong> fonte sans-serif clean, com peso médio a bold para títulos e leve para textos.</li>
-          <li><strong>Ícones:</strong> estilo linear minimalista, garantindo clareza e modernidade.</li>
-          <li><strong>Layout:</strong> uso de espaços brancos amplos para facilitar a leitura e foco no conteúdo.</li>
-          <li><strong>Texturas e formas:</strong> linhas retas e ângulos suaves para transmitir tecnologia e segurança.</li>
-        </ul>
-
-        <p>A identidade visual visa passar uma imagem de alta tecnologia confiável, voltada para empresas inovadoras e startups do setor digital.</p>
-      `,
-      images: [
-        "images/project1-img1.jpg",
-        "images/project1-img2.jpg",
-        "images/project1-img3.jpg"
-      ]
-    },
-    {
-      title: "Nature Travel",
-      description: `
-        <p>Inspirado na aventura e na sustentabilidade, este projeto transmite uma conexão profunda com a natureza através de cores e formas orgânicas.</p>
-
-        <h4>Características da identidade visual:</h4>
-        <ul>
-          <li><strong>Paleta de cores:</strong> verdes musgo, marrons terrosos, bege e off-white.</li>
-          <li><strong>Tipografia:</strong> fontes arredondadas, legíveis e com aspecto natural, dando conforto e acolhimento.</li>
-          <li><strong>Elementos gráficos:</strong> folhas, texturas de madeira e pedras, representando elementos naturais.</li>
-          <li><strong>Estilo visual:</strong> rústico porém moderno, com uso de fotos e ilustrações suaves.</li>
-          <li><strong>Layout:</strong> organizado, mas com toques leves que evocam liberdade e exploração.</li>
-        </ul>
-
-        <p>Essa identidade visual reforça a missão da marca de promover o turismo consciente e a valorização do meio ambiente.</p>
-      `,
-      images: [
-        "images/project2-img1.jpg",
-        "images/project2-img2.jpg"
-      ]
-    },
-    {
-      title: "Blue and Black Gradient",
-      description: `
-        <p>Um projeto com um visual sofisticado e contemporâneo, utilizando gradientes de azul escuro para preto, criando uma atmosfera de elegância e profundidade.</p>
-
-        <h4>Aspectos-chave da identidade visual:</h4>
-        <ul>
-          <li><strong>Paleta de cores:</strong> azul marinho, azul petróleo, preto e cinza antracite.</li>
-          <li><strong>Tipografia:</strong> fontes serifadas modernas para títulos e sans-serif para corpo de texto, garantindo equilíbrio.</li>
-          <li><strong>Uso do gradiente:</strong> como elemento principal de fundo, trazendo dinamismo sem perder a sobriedade.</li>
-          <li><strong>Elementos decorativos:</strong> sombras suaves, linhas finas e detalhes metálicos simulados.</li>
-          <li><strong>Layout:</strong> alinhamento centralizado e espaçamento harmonioso para foco no conteúdo.</li>
-        </ul>
-
-        <p>Ideal para empresas que querem transmitir tradição e inovação ao mesmo tempo, com um toque exclusivo e refinado.</p>
-      `,
-      images: [
-        "images/project3-img1.jpg",
-        "images/project3-img2.jpg",
-        "images/project3-img3.jpg",
-        "images/project3-img4.jpg"
-      ]
-    },
-    {
-      title: "Colorful Art & Design Gallery",
-      description: `
-        <p>Este projeto celebra a diversidade e criatividade por meio de uma explosão de cores vibrantes e formas abstratas.</p>
-
-        <h4>Pontos importantes da identidade visual:</h4>
-        <ul>
-          <li><strong>Paleta de cores:</strong> vermelho vivo, amarelo canário, azul royal, roxo e verde limão.</li>
-          <li><strong>Tipografia:</strong> fontes customizadas, arrojadas e experimentais, combinando com o espírito artístico.</li>
-          <li><strong>Elementos gráficos:</strong> formas geométricas e abstratas, linhas curvas e padrões assimétricos.</li>
-          <li><strong>Estilo geral:</strong> dinâmico, vibrante e cheio de energia.</li>
-          <li><strong>Layout:</strong> fluido e não convencional, estimulando a criatividade e o impacto visual.</li>
-        </ul>
-
-        <p>A identidade visual reforça a missão da galeria de promover inovação, diversidade e expressividade nas artes.</p>
-      `,
-      images: [
-        "images/project4-img1.jpg",
-        "images/project4-img2.jpg",
-        "images/project4-img3.jpg"
-      ]
-    }
-  ];
-
-  const modal = document.getElementById('videoModal');
-  const modalBody = document.getElementById('modalBody');
-  const closeModalBtn = document.getElementById('closeModal');
-  const videoItems = document.querySelectorAll('.video-item');
-
-  videoItems.forEach((item, index) => {
-    item.addEventListener('click', () => {
-      openModal(index);
-    });
-  });
-
-  closeModalBtn.addEventListener('click', closeModal);
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-
-  function openModal(index) {
-  const project = projectDetails[index];
-  let content = `<h3>${project.title}</h3>`;
-  content += `<p>${project.description}</p>`;
-  project.images.forEach(imgSrc => {
-    content += `<img src="${imgSrc}" alt="${project.title}">`;
-  });
-  modalBody.innerHTML = content;
-
-  modal.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-
-  // Esconde header
-  if (header) {
-    header.classList.add('hide-header');
-  }
-
-  // Animação GSAP (fade-in + zoom)
-  gsap.fromTo(
-    ".modal-content",
-    { opacity: 0, scale: 0.85 },
-    { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }
-  );
-}
-
-
-
-function closeModal() {
-  // Animação de saída antes de esconder
-  gsap.to(".modal-content", {
-    opacity: 0,
-    scale: 0.85,
-    duration: 0.3,
-    ease: "power2.in",
-    onComplete: () => {
-      modal.style.display = 'none';
-      modalBody.innerHTML = '';
-      document.body.style.overflow = 'auto';
-
-      if (header) {
-        header.classList.remove('hide-header');
-      }
-    }
-  });
-}
-
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
-  // Animação da seção #portfolio ao entrar na viewport
-  gsap.from("#portfolio", {
-    scrollTrigger: {
-      trigger: "#portfolio",
-      start: "top 80%", // Quando o topo da seção chega a 80% da viewport
-      toggleActions: "play none none none", // anima só uma vez
-    },
-    opacity: 0,
-    y: 100,
-    duration: 1,
-    ease: "power3.out"
-  });
+  function setupHorizontalScroll() {
+    const track = document.querySelector('.portfolio-track');
+    const wrapper = document.querySelector('.portfolio-wrapper');
+    const container = document.querySelector('#portfolio');
 
-  // Animar os vídeos da grade individualmente com atraso em cascata
-  gsap.utils.toArray(".video-item").forEach((item, i) => {
-    gsap.from(item, {
+    // Mata animações anteriores se existirem
+    ScrollTrigger.getAll().forEach(t => t.kill());
+
+    // Garante que a largura seja medida corretamente
+    const totalWidth = track.scrollWidth;
+    const viewportWidth = window.innerWidth;
+    const scrollDistance = totalWidth - viewportWidth;
+
+    gsap.to(track, {
+      x: -scrollDistance,
+      ease: 'none',
       scrollTrigger: {
-        trigger: item,
-        start: "top 85%",
-        toggleActions: "play none none none"
-      },
-      opacity: 0,
-      y: 60,
-      duration: 0.8,
-      delay: i * 0.1,
-      ease: "power2.out"
+        trigger: container,
+        start: 'top top',
+        end: () => `+=${totalWidth}`,
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      }
     });
-  });
+  }
 
-  ScrollTrigger.create({
-  trigger: "#portfolio",
-  start: "top 50%",
-  end: "bottom 50%",
-  onEnter: () => document.body.style.backgroundColor = "#ffffff",
-  onLeaveBack: () => document.body.style.backgroundColor = "rgb(15, 15, 15)"
-});
-
-</script>
-
-<script>
-  gsap.registerPlugin(ScrollTrigger);
-
-  const portfolioTrack = document.querySelector('.portfolio-track');
-  const numItems = document.querySelectorAll('.portfolio-item').length;
-
-  gsap.to(portfolioTrack, {
-    xPercent: -100 * (numItems - 1),
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#portfolio",
-      start: "top top",
-      end: () => `+=${window.innerWidth * (numItems - 1)}`,
-      scrub: true,
-      pin: true,
-      anticipatePin: 1
-    }
-  });
+  // Inicializa ao carregar
+  window.addEventListener('load', setupHorizontalScroll);
+  // Recalcula ao redimensionar
+  window.addEventListener('resize', setupHorizontalScroll);
 </script>
 
 <script>
   let lastScrollTop1 = 0;
-
   window.addEventListener('scroll', () => {
     const currentScroll = window.scrollY;
     const homeRect = homeSection.getBoundingClientRect();
-
     // Mostrar o header ao rolar para cima, esconder ao rolar para baixo
     if (currentScroll > 100 && currentScroll > lastScrollTop1) {
       header.classList.add('hidden');
     } else {
       header.classList.remove('hidden');
     }
-
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-
     // Adicionar fundo preto quando sair da seção home
     if (homeRect.bottom <= 0) {
       header.classList.add('black-bg');
@@ -1218,10 +1063,25 @@ function closeModal() {
     }
   });
 </script>
+<script>
+  const hamburger = document.querySelector('.hamburger');
+const navLeft = document.querySelector('.nav-left');
+const navLinks = document.querySelectorAll('.nav-left a');
+
+hamburger.addEventListener('click', () => {
+  navLeft.classList.toggle('active');
+});
+
+// Fecha o menu ao clicar em qualquer link
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    navLeft.classList.remove('active');
+  });
+});
 
 
+</script>
 </body>
 </html>
-
 </body>
 </html>
