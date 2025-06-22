@@ -1081,6 +1081,40 @@ navLinks.forEach(link => {
 
 
 </script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  const portfolio = document.querySelector("#portfolio");
+
+  const getRevealOffset = () =>
+    Math.min(window.innerHeight, portfolio.offsetHeight);
+
+  const adjustPortfolioMargin = () => {
+    portfolio.style.marginTop = -getRevealOffset() + "px";
+  };
+
+  // Aplica o margin-top inicial
+  adjustPortfolioMargin();
+
+  // Reajusta o margin-top ao recalcular triggers
+  ScrollTrigger.addEventListener("revert", adjustPortfolioMargin);
+
+  // ScrollTrigger para o reveal inicial
+  ScrollTrigger.create({
+    trigger: portfolio,
+    start: () => "top " + (window.innerHeight - getRevealOffset()),
+    end: () => "+=" + getRevealOffset(),
+    pin: true,
+    onEnter: () => {
+      gsap.fromTo(
+        portfolio,
+        { opacity: 0, y: 100 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+      );
+    }
+  });
+</script>
+
 </body>
 </html>
 </body>
