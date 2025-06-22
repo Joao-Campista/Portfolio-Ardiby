@@ -762,7 +762,6 @@ header.black-bg {
     <img class="home-logo vertical-logo" src="logo_vertical.png" alt="Logo Vertical Home">
   </section>
  <section class="portfolio-section" id="portfolio">
-  <div class="portfolio-label-overlay">portfolio</div>
 
   <div class="portfolio-horizontal">
     <div class="portfolio-wrapper">
@@ -1116,24 +1115,6 @@ navLinks.forEach(link => {
     }
   });
 </script>
-
-<script>
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Fade-in no texto "portfolio"
-  gsap.to(".portfolio-label-overlay", {
-    opacity: 1,
-    y: 0,
-    duration: 1.5,
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: "#portfolio",
-      start: "top 80%",
-      toggleActions: "play none none none"
-    }
-  });
-</script>
-
 
 
 </body>
