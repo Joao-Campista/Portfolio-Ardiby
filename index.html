@@ -99,7 +99,7 @@
     .home-logo {
       position: absolute;
      
-      top: 68%;
+      top: 65%;
       transform: translateY(-50%);
       
       width: 90%;
@@ -178,21 +178,20 @@
 .sobre {
   height: 100vh;
   display: flex;
-  align-items: center;
+  align-items:center;
   justify-content: center;
   gap: 80px;
   padding: 0 40px;
   background-color: rgb(15, 15, 15);
   color: white;
+  width: 100vw;
 }
 
-.sobre-text {
-  max-width: 600px;
-}
+
 
 .sobre-text h2 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 8rem;
+  margin-bottom: 3rem;
 }
 
 .sobre-text p {
@@ -201,10 +200,12 @@
 }
 
 .sobre-logo img {
-  width: 400px;
+  width: 700px;
   height: auto;
   object-fit: contain;
 }
+
+
 
 
 
@@ -571,11 +572,13 @@ button {
 }
 header {
   background-color: transparent;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 1s ease, transform 0.3s ease;
   
 }
 header.black-bg {
-  background-color: #0f0f0f;
+    background: rgba(15, 15, 15, 0.5); /* preto com 60% de opacidade */
+  backdrop-filter: blur(10px);       /* efeito de blur no fundo */
+  -webkit-backdrop-filter: blur(10px); /* suporte para Safari */
 }
 .portfolio-label-overlay {
   position: absolute;
@@ -813,7 +816,70 @@ header.black-bg {
   scrollbar-color: #fff #0f0f0f; /* thumb e trilha */
 }
 
+.servico {
+  margin-bottom: 20px;
+  background-color: #0f0f0f; /* mesmo fundo da página */
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
 
+.servico-btn {
+  background-color: #0f0f0f;
+  color: #ffffff;
+  padding: 16px 20px;
+  width: 100%;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 0; /* remove arredondamento */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover e botão ativo */
+.servico-btn:hover,
+.servico.active .servico-btn {
+  background-color: #ffffff;
+  color: #0f0f0f;
+}
+
+.servico-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 20px;
+  background-color: #0f0f0f;
+}
+
+.servico-content p {
+  color: #cccccc;
+  padding: 12px 0;
+}
+
+/* Quando ativo, o conteúdo se expande */
+.servico.active .servico-content {
+  max-height: 300px;
+  padding: 12px 20px;
+}
+
+.servico-btn {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seta {
+  transition: transform 0.3s ease;
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+/* Gira a seta quando a seção está ativa */
+.servico.active .seta {
+  transform: rotate(180deg);
+}
 
 
 
@@ -868,19 +934,31 @@ header.black-bg {
         <img src="portfolio/portfolio.png" alt="">
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Bolsa.jpg" alt="">
+        <img src="portfolio/Estelar1.gif" alt="">
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Copos.jpg" alt="">
+        <img src="portfolio/Estelar2.jpg" alt="">
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Pessoa de Fone.png" alt="">
+        <img src="portfolio/Estelar3.png" alt="">
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Sem-Título-3.gif" alt="">
+        <img src="portfolio/Aurum1.jpg" alt="">
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/warm_moody_cafe_mug_stands_front.jpg" alt="">
+        <img src="portfolio/Aurum2.jpg" alt="">
+      </div>
+      <div class="portfolio-item">
+        <img src="portfolio/Aurum3.jpg" alt="">
+      </div>
+      <div class="portfolio-item">
+        <img src="portfolio/Wavely1.jpg" alt="">
+      </div>
+      <div class="portfolio-item">
+        <img src="portfolio/Wavely2.png" alt="">
+      </div>
+      <div class="portfolio-item">
+        <img src="portfolio/Wavely3.jpg" alt="">
       </div>
     </div>
   </div>
@@ -889,18 +967,50 @@ header.black-bg {
 <section class="transition1"></section>
 <section class="sobre" id="sobre">
   <div class="sobre-text">
-    <h2>Sobre</h2>
-    <p>
-      Na Ardiby, transformamos ideias em experiências visuais únicas.  
-      Nosso time combina criatividade, tecnologia e estratégia para construir identidades que conectam marcas ao seu público de forma autêntica.  
-      Trabalhamos lado a lado com nossos clientes, entendendo suas necessidades e objetivos para entregar soluções sob medida, que destacam e valorizam cada projeto.  
-      Aqui, design não é só estética — é comunicação, é impacto, é resultado.
-    </p>
+    <h2>Meus Serviços</h2>
+
+    <div class="servico">
+      <button class="servico-btn">Identidade Visual <span class="seta">&#9662;</span></button>
+      <div class="servico-content">
+        <p>Desenvolvemos a identidade visual completa da sua empresa, representando a essência da marca através de cores, tipografias, formas, logotipo e muito mais.</p>
+      </div>
+    </div>
+
+    <div class="servico">
+      <button class="servico-btn">Estratégia de Marca <span class="seta">&#9662;</span></button>
+      <div class="servico-content">
+        <p>Uma boa identidade visual só funciona com um bom trabalho de estratégia, com o objetivo de posicionar a marca da melhor maneira possível no mercado.</p>
+      </div>
+    </div>
+
+    <div class="servico">
+      <button class="servico-btn">Motion Design <span class="seta">&#9662;</span></button>
+      <div class="servico-content">
+        <p>Criamos animações dinâmicas e visualmente impactantes que elevam sua marca transformando suas ideias em movimento.</p>
+      </div>
+    </div>
+
+    <div class="servico">
+      <button class="servico-btn">Materiais Gráficos <span class="seta">&#9662;</span></button>
+      <div class="servico-content">
+        <p>Criamos peças gráficas digitais e impressas como posts para redes sociais, banners, apresentações e muito mais. Desenvolvemos o design visual desses materiais com foco em clareza, impacto e alinhamento com a identidade da sua marca</p>
+      </div>
+    </div>
+
+    <div class="servico">
+      <button class="servico-btn">Extras <span class="seta">&#9662;</span></button>
+      <div class="servico-content">
+        <p>Para deixar o serviço ainda mais completo, oferecemos serviços de ilustração, trazendo um design moderno e único para a identidade visual da sua empresa.</p>
+      </div>
+    </div>
+
   </div>
+
   <div class="sobre-logo">
     <img src="logo_vertical.png" alt="Logo da Empresa">
   </div>
 </section>
+
 <div class="overlay-transition"></div>
 <section class="contato" id="contato">
   <div class="contato-content">
@@ -958,15 +1068,14 @@ window.addEventListener('scroll', () => {
     document.body.style.backgroundColor = `rgb(15, 15, 15)`;
   }
   // Controle do header: esconde ao rolar pra baixo após 100px, mostra ao rolar pra cima
-  const currentScroll = window.scrollY;
-  if (currentScroll > 100 && currentScroll > lastScrollTop) {
-    // Rolando para baixo e passou 100px: esconde header
-    header.classList.add('hidden');
-  } else {
-    // Rolando para cima ou perto do topo: mostra header
-    header.classList.remove('hidden');
-  }
-  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+const currentScroll = window.scrollY;
+if (currentScroll > 100 && currentScroll > lastScrollTop) {
+  header.classList.add('hidden');
+} else {
+  header.classList.remove('hidden');
+}
+lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+
   // Animação do texto PORTFOLIO
   if (portfolioRect.top < windowHeight * 0.7 && portfolioRect.bottom > windowHeight * 0.3) {
     portfolioLabel.classList.add('active');
@@ -1147,12 +1256,6 @@ window.addEventListener('scroll', () => {
   window.addEventListener('scroll', () => {
     const currentScroll = window.scrollY;
     const homeRect = homeSection.getBoundingClientRect();
-    // Mostrar o header ao rolar para cima, esconder ao rolar para baixo
-    if (currentScroll > 100 && currentScroll > lastScrollTop1) {
-      header.classList.add('hidden');
-    } else {
-      header.classList.remove('hidden');
-    }
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     // Adicionar fundo preto quando sair da seção home
     if (homeRect.bottom <= 0) {
@@ -1257,6 +1360,25 @@ navLinks.forEach(link => {
     }, 3000); // 3 segundos de espera mínima
   });
 </script>
+
+<script>
+  const servicos = document.querySelectorAll('.servico-btn');
+
+  servicos.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.parentElement;
+      parent.classList.toggle('active');
+
+      // Fecha os outros se quiser comportamento de acordeão exclusivo:
+      document.querySelectorAll('.servico').forEach(outro => {
+        if (outro !== parent) {
+          outro.classList.remove('active');
+        }
+      });
+    });
+  });
+</script>
+
 
 
 </body>
