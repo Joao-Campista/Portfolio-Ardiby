@@ -884,6 +884,50 @@ header.black-bg {
 }
 
 
+html, body {
+  overflow-x: hidden; /* evita o scroll lateral fantasma */
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
+}
+
+.portfolio-section {
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.portfolio-wrapper {
+  overflow: hidden;
+}
+
+.portfolio-track {
+  display: flex;
+  width: max-content;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .portfolio-track {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .portfolio-section {
+    overflow: auto;
+  }
+
+  /* Se quiser desativar o scroll horizontal no mobile */
+  .portfolio-section,
+  .portfolio-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
 
 
   </style>
@@ -901,7 +945,7 @@ header.black-bg {
     <nav class="nav-left">
   <a href="#home">Início</a>
   <a href="#portfolio">Portfólio</a>
-  <a href="#sobre">Sobre</a>
+  <a href="#sobre">Serviços</a>
   <a href="#contato">Contato</a>
 </nav>
 <button class="hamburger" aria-label="Abrir menu">
@@ -930,40 +974,72 @@ header.black-bg {
  <section class="portfolio-section" id="portfolio">
 
   <div class="portfolio-horizontal">
-    <div class="portfolio-wrapper">
+  <div class="portfolio-wrapper">
     <div class="portfolio-track">
       <div class="portfolio-item">
-        <img src="portfolio/portfolio.png" alt="">
+        <picture>
+          <source srcset="portfolio/portfolio.png" media="(max-width: 768px)">
+          <img src="portfolio/portfolio.png" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Estelar1.gif" alt="">
+        <picture>
+          <source srcset="portfolio/Estelar1M.gif" media="(max-width: 768px)">
+          <img src="portfolio/Estelar1.gif" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Estelar2.jpg" alt="">
+        <picture>
+          <source srcset="portfolio/Estelar2M.jpg" media="(max-width: 768px)">
+          <img src="portfolio/Estelar2.jpg" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Estelar3.png" alt="">
+        <picture>
+          <source srcset="portfolio/Estelar3M.jpg" media="(max-width: 768px)">
+          <img src="portfolio/Estelar3.png" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Aurum1.jpg" alt="">
+        <picture>
+          <source srcset="portfolio/Aurum1M.jpg" media="(max-width: 768px)">
+          <img src="portfolio/Aurum1.jpg" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Aurum2.jpg" alt="">
+        <picture>
+          <source srcset="portfolio/Aurum2M.jpg" media="(max-width: 768px)">
+          <img src="portfolio/Aurum2.jpg" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Aurum3.jpg" alt="">
+        <picture>
+          <source srcset="portfolio/Aurum3M.jpg" media="(max-width: 768px)">
+          <img src="portfolio/Aurum3.jpg" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Wavely1.jpg" alt="">
+        <picture>
+          <source srcset="portfolio/Wavely1M.jpg" media="(max-width: 768px)">
+          <img src="portfolio/Wavely1.jpg" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Wavely2.png" alt="">
+        <picture>
+          <source srcset="portfolio/Wavely2M.jpg" media="(max-width: 768px)">
+          <img src="portfolio/Wavely2.png" alt="">
+        </picture>
       </div>
       <div class="portfolio-item">
-        <img src="portfolio/Wavely3.jpg" alt="">
+        <picture>
+          <source srcset="portfolio/Wavely3M.jpg" media="(max-width: 768px)">
+          <img src="portfolio/Wavely3.jpg" alt="">
+        </picture>
       </div>
     </div>
   </div>
+</div>
+
   </div>
 </section>
 <section class="transition1"></section>
