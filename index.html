@@ -940,6 +940,16 @@ body {
   display: block;
 }
 
+.portfolio-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.portfolio-track {
+  display: flex;
+  width: max-content; /* ou um valor exato, mas não maior do que o necessário */
+}
+
 
 
 
@@ -1462,7 +1472,24 @@ document.addEventListener('DOMContentLoaded', () => {
 setTimeout(hideLoader, 8000);
 
 </script>
+<script>
+  const servicos = document.querySelectorAll('.servico-btn');
 
+servicos.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const parent = btn.parentElement;
+    parent.classList.toggle('active');
+
+    // Fecha os outros se quiser comportamento de acordeão exclusivo:
+    document.querySelectorAll('.servico').forEach(outro => {
+      if (outro !== parent) {
+        outro.classList.remove('active');
+      }
+    });
+  });
+});
+
+</script>
 
 
 </body>
