@@ -218,7 +218,7 @@ header, .home, .portfolio, .sobre {
 }
 
 .transition1 {
-  height: 80vh;
+  height: 30vh;
   background-color: white;
 }
 
@@ -929,6 +929,13 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .sobre-logo {
+    display: none;
+  }
+}
+
+
 
   </style>
 </head>
@@ -1431,30 +1438,22 @@ navLinks.forEach(link => {
 </script>
 
 <script>
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const loader = document.getElementById('loading-screen');
-      loader.classList.add('hide');
-    }, 3000); // 3 segundos de espera mínima
-  });
-</script>
+  const loader = document.getElementById('loading-screen');
 
-<script>
-  const servicos = document.querySelectorAll('.servico-btn');
+function hideLoader() {
+  if (!loader.classList.contains('hide')) {
+    loader.classList.add('hide');
+  }
+}
 
-  servicos.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const parent = btn.parentElement;
-      parent.classList.toggle('active');
+// Tenta esconder o loader quando o DOM estiver pronto (mais rápido que load)
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(hideLoader, 2000); // Esconde após 2 segundos
+});
 
-      // Fecha os outros se quiser comportamento de acordeão exclusivo:
-      document.querySelectorAll('.servico').forEach(outro => {
-        if (outro !== parent) {
-          outro.classList.remove('active');
-        }
-      });
-    });
-  });
+// Fallback: força esconder o loader após 8 segundos mesmo se load não disparar
+setTimeout(hideLoader, 8000);
+
 </script>
 
 
