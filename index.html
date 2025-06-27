@@ -935,6 +935,12 @@ body {
   }
 }
 
+.portfolio-video {
+  height: 100%;
+  display: block;
+}
+
+
 
 
   </style>
@@ -990,10 +996,11 @@ body {
         </picture>
       </div>
       <div class="portfolio-item">
-        <picture>
-          <source srcset="portfolio/Estelar1M.gif" media="(max-width: 768px)">
-          <img src="portfolio/Estelar1.gif" alt="">
-        </picture>
+        <video autoplay muted loop playsinline class="portfolio-video">
+  <source src="portfolio/Estelar1.webm" type="video/webm">
+  <source src="portfolio/Estelar1.mp4" type="video/mp4">
+</video>
+
       </div>
       <div class="portfolio-item">
         <picture>
