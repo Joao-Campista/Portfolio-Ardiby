@@ -1318,6 +1318,7 @@ window.addEventListener('scroll', () => {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true);
 
   function setupHorizontalScroll() {
     const track = document.querySelector('.portfolio-track');
@@ -1387,6 +1388,7 @@ navLinks.forEach(link => {
 </script>
 <script>
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true);
 
   const portfolio = document.querySelector("#portfolio");
 
@@ -1420,6 +1422,7 @@ navLinks.forEach(link => {
 </script>
 <script>
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.normalizeScroll(true);
 
   const logoScroll = document.querySelector(".logo-scroll");
   const logoHeader = document.querySelector(".logo-container img");
