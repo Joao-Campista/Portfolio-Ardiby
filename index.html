@@ -940,16 +940,6 @@ body {
   display: block;
 }
 
-.portfolio-wrapper {
-  overflow: hidden;
-  position: relative;
-}
-
-.portfolio-track {
-  display: flex;
-  width: max-content; /* ou um valor exato, mas não maior do que o necessário */
-}
-
 
 
 
@@ -1472,47 +1462,8 @@ document.addEventListener('DOMContentLoaded', () => {
 setTimeout(hideLoader, 8000);
 
 </script>
-<script>
-  const servicos = document.querySelectorAll('.servico-btn');
 
-servicos.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const parent = btn.parentElement;
-    parent.classList.toggle('active');
 
-    // Fecha os outros se quiser comportamento de acordeão exclusivo:
-    document.querySelectorAll('.servico').forEach(outro => {
-      if (outro !== parent) {
-        outro.classList.remove('active');
-      }
-    });
-  });
-});
-
-</script>
-
-<script>
-  document.querySelector('a[href="#portfolio"]').addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector('#portfolio');
-    target.scrollIntoView({
-      behavior: 'smooth'
-    });
-  });
-</script>
-
-<script>
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        const y = target.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
-    });
-  });
-</script>
 
 </body>
 </html>
