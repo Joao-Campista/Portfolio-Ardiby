@@ -560,7 +560,7 @@ button {
 }
 .portfolio-item {
   
-  height: 100vh;
+  height: 100dvh;
   box-sizing: border-box;
   flex-shrink: 0;
   padding: 0; /* <- REMOVA isso se quiser fullscreen */
@@ -967,7 +967,7 @@ body {
   <header id="header">
     <nav class="nav-left">
   <a href="#home">Início</a>
-  <a href="#portfolio">Portfólio</a>
+  <a href="#portfolio1">Portfólio</a>
   <a href="#sobre">Serviços</a>
   <a href="#contato">Contato</a>
 </nav>
@@ -977,7 +977,7 @@ body {
     <span></span>
   </button>
     <div class="logo-container">
-      <img src="svgLogo.svg" alt="Logo">
+      
     </div>
     <div class="language-selector">
   <button class="language-button">
@@ -990,10 +990,11 @@ body {
 </div>
   </header>
  <section class="home" id="home">
-  <video autoplay muted id="videohome" src="videos/video-home.webm" muted loop></video>
+  <video autoplay muted loop preload="auto" id="videohome" src="videos/video-home.webm"></video>
     <img class="home-logo" src="svgLogo.svg" alt="Logo Home">
     <img class="home-logo vertical-logo" src="logo_vertical.png" alt="Logo Vertical Home">
   </section>
+  <section id="portfolio1" class="portfolio-section"></section>
  <section class="portfolio-section" id="portfolio">
 
   <div class="portfolio-horizontal">
