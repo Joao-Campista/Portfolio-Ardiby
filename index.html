@@ -957,6 +957,16 @@ body {
   height: calc(var(--vh, 1vh) * 100);
 }
 
+.portfolio-track {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  height: 100dvh;
+  height: 100lvh;
+  will-change: transform;
+}
+
+
 
 
 
@@ -1504,17 +1514,16 @@ servicos.forEach(btn => {
 
 </script>
 <script>
-  function fixIOSViewportHeight() {
+  function updateVh() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    fixIOSViewportHeight(); // Chama imediatamente ao carregar
-    window.addEventListener('resize', fixIOSViewportHeight);
-    window.addEventListener('orientationchange', fixIOSViewportHeight);
-  });
+  document.addEventListener('DOMContentLoaded', updateVh);
+  window.addEventListener('resize', updateVh);
+  window.addEventListener('orientationchange', updateVh);
 </script>
+
 
 
 </body>
