@@ -1191,6 +1191,8 @@ body {
       <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem" required></textarea>
 
       <button type="submit">Enviar</button>
+      <button type="button" id="whatsappBtn">Enviar via WhatsApp</button>
+
     </form>
   </div>
 </section>
@@ -1296,17 +1298,31 @@ window.addEventListener('scroll', () => {
     pt: {
       inicio: "Início",
       portfolio: "Portfólio",
-      sobre: "Sobre",
+      sobre: "Serviços",
       contato: "Contato",
-      homeTitle: "Transformando Cores em Identidade",
-      homeSubtitle: "Design, criatividade e tecnologia na medida certa.",
-      sobreTitle: "Sobre",
-      sobreContent: `
-        Na Ardiby, transformamos ideias em experiências visuais únicas.
-        Nosso time combina criatividade, tecnologia e estratégia para construir identidades que conectam marcas ao seu público de forma autêntica.
-        Trabalhamos lado a lado com nossos clientes, entendendo suas necessidades e objetivos para entregar soluções sob medida, que destacam e valorizam cada projeto.
-        Aqui, design não é só estética — é comunicação, é impacto, é resultado.
-      `,
+      sobreTitle: "Meus Serviços",
+      servicos: [
+        {
+          titulo: "Identidade Visual",
+          descricao: "Desenvolvemos a identidade visual completa da sua empresa, representando a essência da marca através de cores, tipografias, formas, logotipo e muito mais."
+        },
+        {
+          titulo: "Estratégia de Marca",
+          descricao: "Uma boa identidade visual só funciona com um bom trabalho de estratégia, com o objetivo de posicionar a marca da melhor maneira possível no mercado."
+        },
+        {
+          titulo: "Motion Design",
+          descricao: "Criamos animações dinâmicas e visualmente impactantes que elevam sua marca transformando suas ideias em movimento."
+        },
+        {
+          titulo: "Materiais Gráficos",
+          descricao: "Criamos peças gráficas digitais e impressas como posts para redes sociais, banners, apresentações e muito mais. Desenvolvemos o design visual desses materiais com foco em clareza, impacto e alinhamento com a identidade da sua marca"
+        },
+        {
+          titulo: "Extras",
+          descricao: "Para deixar o serviço ainda mais completo, oferecemos serviços de ilustração, trazendo um design moderno e único para a identidade visual da sua empresa."
+        }
+      ],
       contatoTitle: "Contato",
       nome: "Nome",
       email: "Email",
@@ -1314,22 +1330,37 @@ window.addEventListener('scroll', () => {
       placeholderNome: "Seu nome",
       placeholderEmail: "seu@email.com",
       placeholderMensagem: "Escreva sua mensagem",
-      enviar: "Enviar"
+      enviar: "Enviar",
+      carregando: "Carregando ardiby..."
     },
     en: {
       inicio: "Home",
       portfolio: "Portfolio",
-      sobre: "About",
+      sobre: "Services",
       contato: "Contact",
-      homeTitle: "Transforming Colors into Identity",
-      homeSubtitle: "Design, creativity, and technology in the right measure.",
-      sobreTitle: "About",
-      sobreContent: `
-        At Ardiby, we turn ideas into unique visual experiences.
-        Our team combines creativity, technology, and strategy to build identities that connect brands to their audiences authentically.
-        We work side by side with our clients, understanding their needs and goals to deliver tailored solutions that highlight and enhance each project.
-        Here, design is not just aesthetics — it’s communication, impact, and results.
-      `,
+      sobreTitle: "My Services",
+      servicos: [
+        {
+          titulo: "Visual Identity",
+          descricao: "We develop your company’s complete visual identity, representing the brand’s essence through colors, typography, shapes, logo, and more."
+        },
+        {
+          titulo: "Brand Strategy",
+          descricao: "A strong visual identity works best with a strategic foundation, aiming to position your brand effectively in the market."
+        },
+        {
+          titulo: "Motion Design",
+          descricao: "We create dynamic and visually impactful animations that elevate your brand by turning ideas into motion."
+        },
+        {
+          titulo: "Graphic Materials",
+          descricao: "We design digital and printed graphic materials like social media posts, banners, presentations, and more. All with clarity, impact, and brand alignment."
+        },
+        {
+          titulo: "Extras",
+          descricao: "To complement our services, we offer illustrations that bring a modern and unique visual design to your brand identity."
+        }
+      ],
       contatoTitle: "Contact",
       nome: "Name",
       email: "Email",
@@ -1337,22 +1368,34 @@ window.addEventListener('scroll', () => {
       placeholderNome: "Your name",
       placeholderEmail: "your@email.com",
       placeholderMensagem: "Write your message",
-      enviar: "Send"
+      enviar: "Send",
+      carregando: "Loading ardiby..."
     }
   };
+
   function setLanguage(lang) {
     const t = translations[lang];
+
     // Navbar
     document.querySelector('.nav-left a[href="#home"]').textContent = t.inicio;
-    document.querySelector('.nav-left a[href="#portfolio"]').textContent = t.portfolio;
+    document.querySelector('.nav-left a[href="#portfolio1"]').textContent = t.portfolio;
     document.querySelector('.nav-left a[href="#sobre"]').textContent = t.sobre;
     document.querySelector('.nav-left a[href="#contato"]').textContent = t.contato;
-    // Home
-    document.querySelector('.home-text h1').textContent = t.homeTitle;
-    document.querySelector('.home-text p').textContent = t.homeSubtitle;
-    // Sobre
+
+    // Loading
+    document.querySelector('#loading-screen p').textContent = t.carregando;
+
+    // Serviços (título)
     document.querySelector('.sobre-text h2').textContent = t.sobreTitle;
-    document.querySelector('.sobre-text p').textContent = t.sobreContent.trim();
+
+    // Serviços (lista)
+    const servicoBtns = document.querySelectorAll('.servico-btn');
+    const servicoContents = document.querySelectorAll('.servico-content p');
+    t.servicos.forEach((item, i) => {
+      if (servicoBtns[i]) servicoBtns[i].childNodes[0].textContent = item.titulo + ' ';
+      if (servicoContents[i]) servicoContents[i].textContent = item.descricao;
+    });
+
     // Contato
     document.querySelector('.contato h2').textContent = t.contatoTitle;
     document.querySelector('label[for="nome"]').textContent = t.nome;
@@ -1364,6 +1407,7 @@ window.addEventListener('scroll', () => {
     document.querySelector('button[type="submit"]').textContent = t.enviar;
   }
 </script>
+>
 <script>
   const videos = document.querySelectorAll('.video-item video');
   videos.forEach(video => {
@@ -1567,6 +1611,25 @@ servicos.forEach(btn => {
   });
 });
 
+</script>
+
+<script>
+  document.getElementById('whatsappBtn').addEventListener('click', () => {
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const mensagem = document.getElementById('mensagem').value.trim();
+
+    if (!nome || !email || !mensagem) {
+      alert("Por favor, preencha todos os campos antes de enviar.");
+      return;
+    }
+
+    const msg = `Olá! Meu nome é ${nome}.\nEmail: ${email}\nMensagem: ${mensagem}`;
+    const whatsappNumber = '5535992689636'; // Ex: 5511999999999
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  });
 </script>
 
 
