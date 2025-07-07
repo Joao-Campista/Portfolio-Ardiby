@@ -1009,7 +1009,17 @@ body {
   width: 100%;
   max-width: 100%;
 }
+h4{
+  background-color: #fff;
+  font-size: 200px;
+  color: #0f0f0f;
+  text-align: center;
+  padding-top:100px;
+}
 
+.portfolio2{
+  background-color: #fff;
+}
 
 
 
@@ -1055,18 +1065,14 @@ body {
     <img class="home-logo" src="svgLogo.svg" alt="Logo Home">
     <img class="home-logo vertical-logo" src="logo_vertical.png" alt="Logo Vertical Home">
   </section>
-  <section id="portfolio1" class="portfolio-section"></section>
+  <section id="portfolio2" class="portfolio-section">
+    <h4>portfolio</h4>
+  </section>
  <section class="portfolio-section" id="portfolio">
 
   <div class="portfolio-horizontal">
   <div class="portfolio-wrapper">
     <div class="portfolio-track">
-      <div class="portfolio-item">
-        <picture>
-          <source srcset="portfolio/portfolio.png" media="(max-width: 768px)">
-          <img src="portfolio/portfolio.png" alt="">
-        </picture>
-      </div>
       <div class="portfolio-item">
         <picture>
           <source srcset="portfolio/Wavely1M.jpg" media="(max-width: 768px)">
@@ -1200,13 +1206,10 @@ body {
   <div class="footer-content">
     <p>&copy; 2025 Ardiby. Todos os direitos reservados.</p>
     <div class="social-icons">
-      <a href="#" target="_blank" aria-label="LinkedIn">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
-      <a href="#" target="_blank" aria-label="GitHub">
+      <a href="https://www.behance.net/ardiby" target="_blank" aria-label="GitHub">
         <i class="fab fa-behance"></i>
       </a>
-      <a href="#" target="_blank" aria-label="Instagram">
+      <a href="https://www.instagram.com/ardibystudio/" target="_blank" aria-label="Instagram">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
@@ -1509,7 +1512,7 @@ navLinks.forEach(link => {
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.normalizeScroll(true);
 
-  const portfolio = document.querySelector("#portfolio");
+  const portfolio = document.querySelector("#portfolio1");
 
   const getRevealOffset = () =>
     Math.min(window.innerHeight, portfolio.offsetHeight);
@@ -1625,7 +1628,7 @@ servicos.forEach(btn => {
     }
 
     const msg = `Olá! Meu nome é ${nome}.\nEmail: ${email}\nMensagem: ${mensagem}`;
-    const whatsappNumber = '5535992689636'; // Ex: 5511999999999
+    const whatsappNumber = '5535991102348';
 
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
